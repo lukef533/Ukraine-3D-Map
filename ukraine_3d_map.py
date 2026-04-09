@@ -1,11 +1,32 @@
+import streamlit as st
 import pandas as pd
 import geopandas as gpd
 import pydeck as pdk
 import matplotlib
 import matplotlib.pyplot as plt
 
+# Set up the Streamlit page layout
+st.set_page_config(layout="wide", page_title="Ukraine Strikes 3D Map")
+st.title("Ukraine Air/Drone Strikes 3D Visualization")
+st.markdown("Explore the regional intensity of strikes and specific fatalities. Hover over the regions and 3D bars for details.")
+
+# Cache the data loading so the app runs faster on mobile devices
+@st.cache_data
+def load_data():
+    # Load your ACLED data from GitHub
+    acled_url = 'https://raw.githubusercontent.com/lukef533/Ukraine-Missle-Strikes-Data/refs/heads/main/ACLED%20Data_2026-02-13.csv'
+    acled = pd.read_csv(acled_url)
+    
+    # Load GeoJSON boundaries
+    geojson_url = "https://raw.githubusercontent.com/martynafford/natural-earth-geojson/master/10m/cultural/ne_10m_admin_1_states_provinces.json"
+    world_regions = gpd.read_file(geojson_url)
+    
+    return acled, world_regions
+
+with st.spinner("Loading map data..."):
+    acled, world_regions = load_data()
+
 # 1. Aggregate Regional Data (Attacks and Fatalities)
-# Calculate total fatalities and total attacks for each region (admin1)
 regional_stats = acled.groupby('admin1').agg(
     attack_count=('event_id_cnty', 'count'),
     regional_fatalities=('fatalities', 'sum')
@@ -16,14 +37,10 @@ min_attacks = regional_stats['attack_count'].min()
 max_attacks = regional_stats['attack_count'].max()
 regional_stats['normalized_intensity'] = (regional_stats['attack_count'] - min_attacks) / (max_attacks - min_attacks)
 
-# 2. Load and Prepare Ukraine GeoJSON
-geojso_url = "https://raw.githubusercontent.com/martynafford/natural-earth-geojson/master/10m/cultural/ne_10m_admin_1_states_provinces.json"
-world_regions = gpd.read_file(geojso_url)
-
-# FIX: Broaden filter to include Crimea/Sevastopol if they are labeled as 'Russia' or 'Disputed'
+# 2. Filter and Map GeoJSON
 crimea_names = ['Crimea', 'Avtonomna Respublika Krym', 'Krym', 'Sevastopol', 'm. Sevastopol']
 ukraine_regions = world_regions[
-    (world_regions['admin'] == 'Ukraine') |
+    (world_regions['admin'] == 'Ukraine') | 
     (world_regions['name'].isin(crimea_names))
 ].copy()
 
@@ -56,7 +73,7 @@ ukraine_regions = ukraine_regions.merge(
     how='left'
 )
 
-# --- Tooltip Preparation: Unify Column Names to avoid "undefined" ---
+# Tooltip Preparation: Unify Column Names
 ukraine_regions['attack_count'] = ukraine_regions['attack_count'].fillna(0)
 ukraine_regions['regional_fatalities'] = ukraine_regions['regional_fatalities'].fillna(0)
 ukraine_regions['individual_fatalities'] = "N/A (Hover over a bar)"
@@ -101,26 +118,25 @@ column_layer = pdk.Layer(
     auto_highlight=True,
 )
 
-view_state = pdk.ViewState(latitude=49.0, longitude=32.0, zoom=5.5, pitch=50, bearing=0)
+view_state = pdk.ViewState(latitude=49.0, longitude=32.0, zoom=5.2, pitch=50, bearing=0)
 
-# Unified Tooltip to fix the "undefined" error
 tooltip = {
-    "html": '''
-<b>Region:</b> {admin1_display} <br/>
-<b>Total Regional Attacks:</b> {attack_count} <br/>
-<b>Total Regional Fatalities:</b> {regional_fatalities} <br/>
-<hr style="margin: 5px 0;">
-<b>Strike Fatalities:</b> {individual_fatalities}
-    ''',
+    "html": """
+        <b>Region:</b> {admin1_display} <br/>
+        <b>Total Regional Attacks:</b> {attack_count} <br/>
+        <b>Total Regional Fatalities:</b> {regional_fatalities} <br/>
+        <hr style="margin: 5px 0;">
+        <b>Strike Fatalities:</b> {individual_fatalities}
+    """,
     "style": {"background": "#333333", "color": "white", "font-family": 'Arial', "z-index": "10000"}
 }
 
 r = pdk.Deck(layers=[region_layer, column_layer], initial_view_state=view_state, tooltip=tooltip, map_style='dark')
 
-# Display the map
-display(r.show())
+# Render the Map in Streamlit
+st.pydeck_chart(r)
 
-# 5. Legend for the Poster
+# 5. Render the Legend in Streamlit
 fig, ax = plt.subplots(figsize=(8, 1))
 fig.subplots_adjust(bottom=0.5)
 norm = matplotlib.colors.Normalize(vmin=min_attacks, vmax=max_attacks)
@@ -128,4 +144,6 @@ sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
 sm.set_array([])
 cb = fig.colorbar(sm, cax=ax, orientation='horizontal')
 cb.set_label('Total Regional Air/Drone Attacks (Intensity Scale)')
-plt.show()
+
+# Render the Matplotlib figure
+st.pyplot(fig)
