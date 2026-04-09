@@ -1,4 +1,5 @@
-geopandas as gpd
-pydeck as pdk
+streamlit
+pandas
+geopandas
+pydeck
 matplotlib
-matplotlib.pyplot as plt
