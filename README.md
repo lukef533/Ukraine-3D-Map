@@ -1,4 +1,4 @@
-# Ukraine Conflict Analysis: Patterns, Impact & Prediction
+# Russo-Ukrainian Airstrike Analysis: Patterns, Impact & Prediction
 
 This project delves into the Russo-Ukrainian conflict using open-source data to identify patterns, analyze the impact of various events, and predict fatality occurrences. Through extensive data analysis, geospatial visualizations, and machine learning models, we aim to provide insights into the conflict's dynamics.
 
