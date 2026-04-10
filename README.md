@@ -1,4 +1,4 @@
-# Russo-Ukrainian Airstrike Analysis: Patterns, Impact & Prediction
+# Ukraine Conflict Analysis: Patterns, Impact & Prediction
 
 This project delves into the Russo-Ukrainian conflict using open-source data to identify patterns, analyze the impact of various events, and predict fatality occurrences. Through extensive data analysis, geospatial visualizations, and machine learning models, we aim to provide insights into the conflict's dynamics.
 
@@ -46,6 +46,8 @@ Future work could involve integrating more diverse data sources (e.g., economic 
 ## Interactive 3D Map (Streamlit App)
 
 An interactive 3D map is available, built using PyDeck and Streamlit, showcasing regional attack intensity and individual fatality strikes across Ukraine. The map allows for exploration of conflict hotpots and the severity of events.
+
+**Access the live Streamlit app here:** [https://ukraine-3d-map-nt7et2c3m46k2boo2vqnfd.streamlit.app/](https://ukraine-3d-map-nt7et2c3m46k2boo2vqnfd.streamlit.app/)
 
 ### How to Run the Streamlit App Locally
 
