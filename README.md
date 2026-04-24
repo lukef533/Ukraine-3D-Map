@@ -47,32 +47,4 @@ Future work could involve integrating more diverse data sources (e.g., economic 
 
 An interactive 3D map is available, built using PyDeck and Streamlit, showcasing regional attack intensity and individual fatality strikes across Ukraine. The map allows for exploration of conflict hotpots and the severity of events.
 
-**Access the live Streamlit app here:** [https://ukraine-3d-map-nt7et2c3m46k2boo2vqnfd.streamlit.app/](https://ukraine-3d-map-nt7et2c3m46k2boo2vqnfd.streamlit.app/)
-
-### How to Run the Streamlit App Locally
-
-1.  **Clone the repository:**
-
-    ```bash
-    git clone <your-repo-url>
-    cd <your-repo-name>
-    ```
-
-2.  **Install dependencies:**
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *(Ensure `requirements.txt` contains `pandas`, `geopandas`, `pydeck`, `matplotlib`, `streamlit`, `scikit-learn`, `statsmodels`, `seaborn`, `IPython`)*
-
-3.  **Save the Streamlit application file:**
-
-    The Streamlit application code has been exported to `ukraine_3d_map.py` (or similar). Make sure this file is in your cloned repository.
-
-4.  **Run the Streamlit app:**
-
-    ```bash
-    streamlit run ukraine_3d_map.py
-    ```
-
-    This will open the interactive 3D map in your web browser.
+**Access the live Streamlit app [HERE](https://ukraine-3d-map-nt7et2c3m46k2boo2vqnfd.streamlit.app/)**
