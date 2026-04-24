@@ -1,78 +1,196 @@
 # The Russo-Ukrainian War: An Analysis of the Russian Air/Drone Strikes on Ukraine
 
-This project delves into the Russo-Ukrainian conflict using open-source data to identify patterns, analyze the impact of various events, and predict fatality occurrences. Through extensive data analysis, geospatial visualizations, and machine learning models, we aim to provide insights into the conflict's dynamics.
+## Conflict Analytics • Geospatial Intelligence • Machine Learning • Interactive Visualization
 
-## Project Overview
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-lightgrey)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
+![Streamlit](https://img.shields.io/badge/Streamlit-Live_App-red)
+![Status](https://img.shields.io/badge/Project-Completed-brightgreen)
+
+---
+
+## 🔗 Quick Links
+
+* 🚀 **Live Streamlit App:** [Interactive 3D Conflict Map](https://ukraine-3d-map-nt7et2c3m46k2boo2vqnfd.streamlit.app/)
+* 📊 **Dataset Source:** [Missile/UAV Attack Data (Kaggle)](https://www.kaggle.com/datasets/piterfm/massive-missile-attacks-on-ukraine/data)
+* 📍 **Conflict Event Data:** ACLED (Armed Conflict Location & Event Data Project)
+* 🧠 **Project Focus:** Fatality Prediction + Geospatial Strike Analysis
+
+---
+
+## 🗂 Table of Contents
+
+* [📌 Project Overview](#-project-overview)
+* [📊 Data Sources](#-data-sources)
+* [⚙️ Methodology](#️-methodology)
+* [🧠 Model Performance](#-model-performance)
+* [🔍 Key Findings](#-key-findings)
+* [⚠️ Limitations & Caveats](#️-limitations--caveats)
+* [🌍 Broader Implications & Future Work](#-broader-implications--future-work)
+* [🗺 Interactive 3D Map (Streamlit App)](#-interactive-3d-map-streamlit-app)
+
+---
+
+## 📌 Project Overview
+
+This project delves into the Russo-Ukrainian conflict using open-source data to identify patterns, analyze the impact of various events, and predict fatality occurrences. Through extensive data analysis, geospatial visualizations, and machine learning models, we aim to provide insights into the conflict's dynamics.
 
 We analyze conflict events and missile/UAV strikes to understand their distribution, intensity, and consequences, with a particular focus on civilian targeting and fatalities. The project culminates in an interactive 3D map visualizing regional attack intensity and individual strike fatalities.
 
-## Data Sources
+---
+
+## 📊 Data Sources
 
 Two primary datasets were utilized:
 
-*   **ACLED Data (Armed Conflict Location & Event Data Project)**: Provides granular information on conflict events, actors, locations (latitude/longitude), event types, and associated fatalities across Ukraine.
-*   **Missile/UAV Attack Data**: Detailed records of launched and destroyed missiles and unmanned aerial vehicles, including their models, categories (missile/UAV), and targets. Source is kaggle, where a Ukrainian developer tracks media outlets and records airstrike data. Link [here](https://www.kaggle.com/datasets/piterfm/massive-missile-attacks-on-ukraine/data )
+### 1. ACLED Data (Armed Conflict Location & Event Data Project)
 
-## Methodology
+Provides granular information on conflict events, actors, locations (latitude/longitude), event types, and associated fatalities across Ukraine.
+
+### 2. Missile/UAV Attack Data
+
+Detailed records of launched and destroyed missiles and unmanned aerial vehicles, including their models, categories (missile/UAV), and targets.
+
+Source is Kaggle, where a Ukrainian developer tracks media outlets and records airstrike data.
+
+🔗 Link: https://www.kaggle.com/datasets/piterfm/massive-missile-attacks-on-ukraine/data
+
+---
+
+## ⚙️ Methodology
 
 Our analytical approach involved several stages:
 
-1.  **Exploratory Data Analysis (EDA)**: Initial examination of data distributions, event timelines, and regional concentrations of conflict and attacks.
-2.  **Geospatial Analysis**: Creation of 2D and 3D interactive maps to visualize conflict hotspots, fatality locations, and regional attack intensities. K-Means clustering was applied to latitude and longitude to create geospatial features for modeling.
-3.  **Feature Engineering**: Development of temporal features (month, day of week, day of year) and integration of geospatial clusters into the dataset.
-4.  **Predictive Modeling**: Employed a two-tiered modeling approach:
-    *   **Lasso Regression**: Used to predict the number of fatalities for events where fatalities occur, identifying key influencing factors.
-    *   **Logistic Regression & Random Forest Classifier**: Used to predict the likelihood of an event resulting in any fatalities (binary classification: fatalities > 0 or = 0). These models help understand the drivers behind fatal versus non-fatal incidents.
-  
-## Model Performance
+### 1. Exploratory Data Analysis (EDA)
 
-**Random Forest Classifier** (Binary Classification: Fatalities > 0)
-- **Accuracy: 0.90**
-- **Precision: 0.89**
-- **Recall: 0.90**
-- **F1-Score: 0.90**
+Initial examination of data distributions, event timelines, and regional concentrations of conflict and attacks.
 
-**Top Predictive Features:**
+### 2. Geospatial Analysis
+
+Creation of 2D and 3D interactive maps to visualize conflict hotspots, fatality locations, and regional attack intensities. K-Means clustering was applied to latitude and longitude to create geospatial features for modeling.
+
+### 3. Feature Engineering
+
+Development of temporal features (month, day of week, day of year) and integration of geospatial clusters into the dataset.
+
+### 4. Predictive Modeling
+
+Employed a two-tiered modeling approach:
+
+#### Lasso Regression
+
+- Used to predict the number of fatalities for events where fatalities occur, identifying key influencing factors.
+
+#### Logistic Regression & Random Forest Classifier
+
+- Used to predict the likelihood of an event resulting in any fatalities (binary classification: fatalities > 0 or = 0). These models help understand the drivers behind fatal versus non-fatal incidents.
+
+---
+
+## 🧠 Model Performance
+
+### Random Forest Classifier
+
+**Binary Classification: Fatalities > 0**
+
+| Metric    | Score |
+| --------- | ----: |
+| Accuracy  |  0.90 |
+| Precision |  0.89 |
+| Recall    |  0.90 |
+| F1-Score  |  0.90 |
+
+### Top Predictive Features
+
 1. Day of year
-2. Longitude/Latitude of target
+2. Longitude / Latitude of target
 3. Population of target city
 4. Temporal patterns (month, day of week)
 5. Geospatial clustering
 
-**Lasso Regression** (Fatality Count Prediction)
-- Used to estimate magnitude of fatalities when casualties occur
-- Key insight: Location and temporal factors are crucial determinants
+---
 
-## Key Findings
+### Lasso Regression
 
-*   The conflict involves a significant number of events, with over **6,000 recorded incidents** and **over 10,000 fatalities** across the datasets.
-*   Intense conflict activity is concentrated in specific regions, particularly **Donetsk and Luhansk**, which account for a substantial percentage of all strikes, leading to disproportionate impacts and a higher likelihood of casualties there.
-*   Missile and UAV data indicate an overall destruction rate of over **70%** for launched projectiles, highlighting strong defensive capabilities.
-*   A notable proportion (over **50%**) of ACLED conflict events are recorded with zero fatalities, suggesting varied incident impacts.
-*   **Geospatial location** and **temporal factors** (where and when events occur) are crucial determinants of conflict severity and casualty counts, as confirmed by our predictive models.
-*   The **Shahed-136/131** UAV model is a prominent component of the attacks, representing a significant percentage of all launched projectiles.
+**Fatality Count Prediction**
 
-## Limitations & Caveats
+Used to estimate magnitude of fatalities when casualties occur.
 
-- ACLED data relies on media reporting; coverage gaps may exist in isolated areas
-- Missile/UAV data sourced from Ukrainian media; figures reflect Ukrainian reporting
-- Geolocation accuracy varies; some events lack precise coordinates
-- Temporal lag between incident occurrence and data publication
-- Zero-fatality events may be underreported in media sources
-- Model predictions assume historical patterns continue
+### Key Insight
 
-## Broader Implications & Future Work
+Location and temporal factors are crucial determinants.
+
+---
+
+## 🔍 Key Findings
+
+* The conflict involves a significant number of events, with over **6,000 recorded incidents** and **over 10,000 fatalities** across the datasets.
+
+* Intense conflict activity is concentrated in specific regions, particularly **Donetsk and Luhansk**, which account for a substantial percentage of all strikes, leading to disproportionate impacts and a higher likelihood of casualties there.
+
+* Missile and UAV data indicate an overall destruction rate of over **70%** for launched projectiles, highlighting strong defensive capabilities.
+
+* A notable proportion (over **50%**) of ACLED conflict events are recorded with zero fatalities, suggesting varied incident impacts.
+
+* **Geospatial location** and **temporal factors** (where and when events occur) are crucial determinants of conflict severity and casualty counts, as confirmed by our predictive models.
+
+* The **Shahed-136/131** UAV model is a prominent component of the attacks, representing a significant percentage of all launched projectiles.
+
+---
+
+## ⚠️ Limitations & Caveats
+
+* ACLED data relies on media reporting; coverage gaps may exist in isolated areas
+
+* Missile/UAV data sourced from Ukrainian media; figures reflect Ukrainian reporting
+
+* Geolocation accuracy varies; some events lack precise coordinates
+
+* Temporal lag between incident occurrence and data publication
+
+* Zero-fatality events may be underreported in media sources
+
+* Model predictions assume historical patterns continue
+
+---
+
+## 🌍 Broader Implications & Future Work
 
 Our findings can inform:
 
-*   **Humanitarian Aid**: Directing resources to high-risk areas based on predicted fatality patterns.
-*   **Policy & Defense**: Developing more effective defense strategies and resource allocation by understanding attack types and locations.
-*   **Conflict Monitoring**: Contributing to early warning systems for escalating violence.
+### Humanitarian Aid
+
+Directing resources to high-risk areas based on predicted fatality patterns.
+
+### Policy & Defense
+
+Developing more effective defense strategies and resource allocation by understanding attack types and locations.
+
+### Conflict Monitoring
+
+Contributing to early warning systems for escalating violence.
+
+### Future Work
 
 Future work could involve integrating more diverse data sources (e.g., economic indicators, social media sentiment), exploring advanced deep learning models for spatio-temporal predictions, and refining models to predict specific types of casualties or damages.
 
-## Interactive 3D Map (Streamlit App)
+---
+
+## 🗺 Interactive 3D Map (Streamlit App)
 
 An interactive 3D map is available, built using PyDeck and Streamlit, showcasing regional attack intensity and individual fatality strikes across Ukraine. The map allows for exploration of conflict hotpots and the severity of events.
 
-**Access the live Streamlit app [HERE](https://ukraine-3d-map-nt7et2c3m46k2boo2vqnfd.streamlit.app/)**
+### 🚀 Access the Live App
+
+🔗 https://ukraine-3d-map-nt7et2c3m46k2boo2vqnfd.streamlit.app/
+
+---
+
+## Final Takeaway
+
+The strongest predictor of civilian fatalities is not weapon type alone—but where and when attacks occur.
+
+Geography and timing consistently outperform raw strike counts, highlighting the importance of spatial intelligence in modern conflict analysis.
+
+---
