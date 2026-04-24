@@ -11,7 +11,7 @@ We analyze conflict events and missile/UAV strikes to understand their distribut
 Two primary datasets were utilized:
 
 *   **ACLED Data (Armed Conflict Location & Event Data Project)**: Provides granular information on conflict events, actors, locations (latitude/longitude), event types, and associated fatalities across Ukraine.
-*   **Missile/UAV Attack Data**: Detailed records of launched and destroyed missiles and unmanned aerial vehicles, including their models, categories (missile/UAV), and targets. Source is kaggle, where a Ukrainian developer tracks media outlets and records airstrike data. Link here: https://www.kaggle.com/datasets/piterfm/massive-missile-attacks-on-ukraine/data 
+*   **Missile/UAV Attack Data**: Detailed records of launched and destroyed missiles and unmanned aerial vehicles, including their models, categories (missile/UAV), and targets. Source is kaggle, where a Ukrainian developer tracks media outlets and records airstrike data. Link [here](https://www.kaggle.com/datasets/piterfm/massive-missile-attacks-on-ukraine/data )
 
 ## Methodology
 
