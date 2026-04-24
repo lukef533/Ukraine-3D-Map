@@ -23,6 +23,25 @@ Our analytical approach involved several stages:
 4.  **Predictive Modeling**: Employed a two-tiered modeling approach:
     *   **Lasso Regression**: Used to predict the number of fatalities for events where fatalities occur, identifying key influencing factors.
     *   **Logistic Regression & Random Forest Classifier**: Used to predict the likelihood of an event resulting in any fatalities (binary classification: fatalities > 0 or = 0). These models help understand the drivers behind fatal versus non-fatal incidents.
+  
+## Model Performance
+
+**Random Forest Classifier** (Binary Classification: Fatalities > 0)
+- **Accuracy: 0.90**
+- **Precision: 0.89**
+- **Recall: 0.90**
+- **F1-Score: 0.90**
+
+**Top Predictive Features:**
+1. Day of year
+2. Longitude/Latitude of target
+3. Population of target city
+4. Temporal patterns (month, day of week)
+5. Geospatial clustering
+
+**Lasso Regression** (Fatality Count Prediction)
+- Used to estimate magnitude of fatalities when casualties occur
+- Key insight: Location and temporal factors are crucial determinants
 
 ## Key Findings
 
@@ -32,6 +51,15 @@ Our analytical approach involved several stages:
 *   A notable proportion (over **50%**) of ACLED conflict events are recorded with zero fatalities, suggesting varied incident impacts.
 *   **Geospatial location** and **temporal factors** (where and when events occur) are crucial determinants of conflict severity and casualty counts, as confirmed by our predictive models.
 *   The **Shahed-136/131** UAV model is a prominent component of the attacks, representing a significant percentage of all launched projectiles.
+
+## Limitations & Caveats
+
+- ACLED data relies on media reporting; coverage gaps may exist in isolated areas
+- Missile/UAV data sourced from Ukrainian media; figures reflect Ukrainian reporting
+- Geolocation accuracy varies; some events lack precise coordinates
+- Temporal lag between incident occurrence and data publication
+- Zero-fatality events may be underreported in media sources
+- Model predictions assume historical patterns continue
 
 ## Broader Implications & Future Work
 
